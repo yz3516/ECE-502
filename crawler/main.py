@@ -3,6 +3,8 @@ from queue import Queue
 from spider import Spider
 from domain import *
 from general import *
+import sqlite3
+from databaseManage import * 
 
 #GUI可能主要在这里让用户输入
 PROJECT_NAME = 'ITU'
@@ -32,24 +34,37 @@ def work():
 
 
 # Each queued link is a new job
-def create_jobs():
+def create_jobs(cur):
     for link in file_to_set(QUEUE_FILE):
-        queue.put(link)
+        #if current link has not being crawled then append it to queue
+        if not findChecked(cur, link): 
+            queue.put(link)
     queue.join()
     crawl()
 
 
 # Check if there are items in the queue, if so crawl them
-def crawl():
+def crawl(cur):
     queued_links = file_to_set(QUEUE_FILE)
     if len(queued_links) > 0:
         print(str(len(queued_links)) + ' links in the queue')
-        create_jobs()
+        create_jobs(cur)
 
 
 def main():
+    # get connected with database and setup cursor 
+    conn = sqlite3.connect('crawledList.db')
+    cur = conn.cursor()
+    # setup the url table if not already exist
+    add_url_table(cur)
+
     create_workers()
-    crawl()
+    crawl(cur)
+
+    processCrawled(cur)
+    printAll(cur)
+    # close database connection 
+    conn.close()
 
 if __name__ == '__main__':
     main()
