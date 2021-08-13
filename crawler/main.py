@@ -47,5 +47,9 @@ def crawl():
         create_jobs()
 
 
-create_workers()
-crawl()
+def main():
+    create_workers()
+    crawl()
+
+if __name__ == '__main__':
+    main()
