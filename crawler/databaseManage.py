@@ -44,7 +44,8 @@ def processCrawled(cur):
 
 def findChecked(cur, urlAddress):
     # search database with urlAddress and has a status of crawled
-    cur.execute(''' SELECT * FROM urlTable WHERE url = urlAddress AND status = 'crawled' ''')
+    #cur.execute(''' SELECT * FROM urlTable WHERE url = urlAddress AND status = 'crawled' ''')
+    cur.execute(" SELECT * FROM urlTable WHERE url = ? AND status = 'crawled' ", (urlAddress,))
     urlList = cur.fetchall()
     if (len(urlList) > 0):
         return True

@@ -1,10 +1,11 @@
+import sqlite3
 import threading
 from queue import Queue
 from spider import Spider
 from domain import *
 from general import *
-import sqlite3
-from databaseManage import * 
+
+from databaseManage import *
 
 #GUI可能主要在这里让用户输入
 PROJECT_NAME = 'ITU'
@@ -40,7 +41,7 @@ def create_jobs(cur):
         if not findChecked(cur, link): 
             queue.put(link)
     queue.join()
-    crawl()
+    crawl(cur)
 
 
 # Check if there are items in the queue, if so crawl them
@@ -52,7 +53,7 @@ def crawl(cur):
 
 
 def main():
-    # get connected with database and setup cursor 
+    # get connected with database and setup cursor
     conn = sqlite3.connect('crawledList.db')
     cur = conn.cursor()
     # setup the url table if not already exist
