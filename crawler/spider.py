@@ -19,7 +19,7 @@ class Spider:
         Spider.queue_file = Spider.project_name + '/queue.txt'
         Spider.crawled_file = Spider.project_name + '/crawled.txt'
         self.boot()
-        # self.crawl_page('First spider', Spider.base_url)
+        self.crawl_page('First spider', Spider.base_url)
 
     # Creates directory and files for project on first run and starts the spider
     @staticmethod

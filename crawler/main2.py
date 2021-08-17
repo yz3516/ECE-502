@@ -69,14 +69,14 @@ def create_jobs(queue):
         if not findChecked(cur, link): 
             queue.put(link)
     queue.join()
-    crawl()
+    crawl(url_input)
 
 
 # Check if there are items in the queue, if so crawl them
 def crawl(url_input):
     
     #HOMEPAGE = url_input.get()
-    HOMEPAGE = 'itu.com'
+    HOMEPAGE = 'http://google.com/'
     DOMAIN_NAME = get_domain_name(HOMEPAGE)
     queue = Queue()
     Spider(PROJECT_NAME, HOMEPAGE, DOMAIN_NAME)
