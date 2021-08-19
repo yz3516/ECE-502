@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import sqlite3
 import datetime
 
@@ -49,10 +49,13 @@ def findChecked(cur, urlAddress):
         return False
     
 def printAll(cur):
+    result = ''
     cur.execute("SELECT * FROM urlTable")
     rows = cur.fetchall()
     for row in rows:
-        print(row)
+        result += row[0] + row[1] + '\n' + row[2] + '\n' + '\n'
+    result += 'End of Crawled Data. Please enter new url. '
+    return result
 
 # Create the table
 def add_url_table(cur):
