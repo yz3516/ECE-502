@@ -1,11 +1,6 @@
 import sqlite3
 import datetime
 
-PROJECT_NAME = 'ITU'
-HOMEPAGE = 'http://itu.edu/'
-QUEUE_FILE = PROJECT_NAME + '/queue.txt'
-CRAWLED_FILE = PROJECT_NAME + '/crawled.txt'
-
 # Create a Link class
 class Link:
 

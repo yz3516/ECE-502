@@ -1,6 +1,6 @@
-from tkinter import *
+'''from tkinter import *
 
-def main():
+def gui():
 	global url_input,text
 	#创建空白窗口,作为主载体
 	root = Tk()
@@ -23,5 +23,3 @@ def main():
 	button =Button(root,text='Exit',font=("arial",15),command=root.quit).grid(row=2,column=1,sticky=E)
 	#使得窗口一直存在
 	mainloop()
-	
-main()
