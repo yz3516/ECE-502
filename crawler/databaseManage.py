@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import sqlite3
 import datetime
 
@@ -28,7 +29,7 @@ class Link:
         return self.time
         
 
-def processCrawled(cur):
+def processCrawled(cur,CRAWLED_FILE):
     crawlFile = open(CRAWLED_FILE, 'r')
     Lines = crawlFile.readlines()
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import threading
 from queue import Queue
 from spider import Spider
@@ -13,6 +14,10 @@ CRAWLED_FILE = PROJECT_NAME + '/crawled.txt'
 NUMBER_OF_THREADS = 8
 queue = Queue()
 
+conn = sqlite3.connect('crawledList.db')
+cur = conn.cursor()
+# setup the url table if not already exist
+add_url_table(cur)
 
 
 def callGUI():
@@ -30,7 +35,7 @@ def callGUI():
     url_input.grid(row=0,column=1)
 
     #设置按钮
-    button_D = Button(root, text='Download', font=("arial",15),command = lambda: [create_workers(), crawl()])
+    button_D = Button(root, text='Download', font=("arial",15),command = lambda: crawl())
     button_D.grid(row=2,column=0)
     button_E = Button(root, text='Exit',font = ("arial", 15),command = root.quit)
     button_E.grid(row=2,column=1)
@@ -63,7 +68,7 @@ def create_jobs():
 
 # Check if there are items in the queue, if so crawl them
 def crawl():
-    #HOMEPAGE = url_input.get()
+    HOMEPAGE = url_input.get()
     #HOMEPAGE = 'http://itu.edu/'
     DOMAIN_NAME = get_domain_name(url_input.get())
     Spider(PROJECT_NAME, url_input.get(), DOMAIN_NAME)
@@ -75,16 +80,15 @@ def crawl():
 
 
 def main():
+    create_workers()
     callGUI()
 
-    conn = sqlite3.connect('crawledList.db')
-    cur = conn.cursor()
-    # setup the url table if not already exist
-    add_url_table(cur)
-    processCrawled(cur)
+
+    processCrawled(cur, CRAWLED_FILE)
     printAll(cur)
     # close database connection 
     conn.close()
 
 if __name__ == '__main__':
     main()
+
