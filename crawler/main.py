@@ -8,6 +8,8 @@ import sqlite3
 from databaseManage import * 
 from tkinter import *
 import tkinter as tk
+from PIL import Image, ImageTk
+
 
 PROJECT_NAME = 'ITU'
 QUEUE_FILE = PROJECT_NAME + '/queue.txt'
@@ -22,34 +24,45 @@ add_url_table(cur)
 
 
 def callGUI():
-	#创建空白窗口,作为主载体
+	#create the empyt window
     root = Tk()
     root.title('Url-Crawler')
-	#窗口的大小，后面的加号是窗口在整个屏幕的位置
-    root.geometry('800x600')
-	#标签控件，窗口中放置文本组件
-    Label(root,text='Input the Website Address :',font=("arial",16),fg='black').grid(sticky = W, 
-    columnspan = 2, ipadx = 5, ipady = 5)
+	#adjust window's size
+    root.geometry('390x500+553+165')
+    
+	#create the lables and input
+    Label(root,text='Input the Website Address :',font=("arial",16),fg='black').grid(sticky = W, row=0, column=3,
+    columnspan = 5, ipadx = 5, ipady = 5)
 
-	#Entry是可输入文本框
+	#Entry is where user enter the website address
     global url_input
-    url_input=Entry(root,font=("arial",16), width= 40)
-    url_input.grid(sticky = W, row=1, column=0, columnspan = 2, ipadx = 5, ipady = 5)
+    url_input=Entry(root,font=("arial",16), width= 40,relief=RIDGE,borderwidth=2)
+    url_input.grid(sticky = W, row=1, column=2, columnspan = 5, ipadx = 5, ipady = 5)
+    
+     #add button
+    button_img = tk.PhotoImage(file='button.png')
+    button_D = Button(root, text='Crawl! ', image=button_img, compound = LEFT, font=("arial",16),command = lambda: crawl(outputBox))
+    button_D.grid(row=2,column=3)
+    button_E = Button(root, text=' Exit ',image=button_img, compound = LEFT,font = ("arial", 16),command = root.quit)
+    button_E.grid( row=2,column=6)
 
     # add text box here
-    outputBox = Text(root, font=("arial",16), height = 20, width=60)
-    outputBox.grid(sticky = W, row = 2, column = 0, columnspan = 2, ipadx = 5, ipady = 5)
+
+    outputBox = Text(root, font=("arial",16), relief=GROOVE, height = 12, width=40,borderwidth=1)
+    outputBox.grid(sticky = W, row = 3, column = 3, columnspan = 5, ipadx = 5, ipady = 5)
+    
     #quote = """HAMLET: To be, """
     #outputBox.insert(END, quote)
 
-    #设置按钮
-    button_D = Button(root, text='Crawl!', font=("arial",16),command = lambda: crawl(outputBox))
-    button_D.grid(sticky = W, row=3,column=0)
-    button_E = Button(root, text='Exit',font = ("arial", 16),command = root.quit)
-    button_E.grid(sticky = W, row=3,column=1)
+    img_gif = tk.PhotoImage(file = 'bear-monday.gif')    
+    label_img = tk.Label(root, image = img_gif)
+    label_img.grid( row=4,column=3,columnspan = 5, ipadx = 5, ipady = 5)   
 
-    #使得窗口一直存在
-    mainloop()
+
+    #add a  picture
+    
+    
+    root.mainloop()
 
 # Create worker threads (will die when main exits)
 def create_workers():
