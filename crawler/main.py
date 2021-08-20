@@ -28,7 +28,7 @@ def callGUI():
     root = Tk()
     root.title('Url-Crawler')
 	#adjust window's size
-    root.geometry('390x500+553+165')
+    root.geometry('500x600+553+165')
     
 	#create the lables and input
     Label(root,text='Input the Website Address :',font=("arial",16),fg='black').grid(sticky = W, row=0, column=3,
